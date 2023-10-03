@@ -1,0 +1,33 @@
+﻿@model AssignSurveyViewModel
+
+<h1>Assign Survey</h1>
+
+<form asp-action="AssignSurvey" asp-controller="Survey" method="post">
+    <div class="form-group">
+        <label for="FirstName">First Name:</label>
+        <input type="text" id="FirstName" name="FirstName" value="@Model.FirstName" readonly />
+    </div>
+
+    <div class="form-group">
+        <label for="LastName">Last Name:</label>
+        <input type="text" id="LastName" name="LastName" value="@Model.LastName" readonly />
+    </div>
+
+    <div class="form-group">
+        <label for="Email">Email:</label>
+        <input type="text" id="Email" name="Email" value="@Model.Email" readonly />
+    </div>
+
+    <div class="form-group">
+        <label for="SelectedSurveyId">Select Survey:</label>
+        <select id="SelectedSurveyId" name="SelectedSurveyId" class="form-control">
+            <option value="">Select a survey</option>
+            @foreach (var survey in Model.Surveys)
+            {
+                <option value="@survey.Value">@survey.Text</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Assign Survey</button>
+</form>

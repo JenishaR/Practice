@@ -1,0 +1,21 @@
+﻿@model List<AspNetEmployeeSurvey.Models.EmployeeLogModel>
+
+<h1>Login/Logout History</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Login Time</th>
+            <th>Logout Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var log in Model)
+        {
+            <tr>
+                <td>@log.LogInTime</td>
+                <td>@log.LogOutTime</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,77 @@
+﻿@model AspNetEmployeeSurvey.Models.SurveyModelClass
+
+@{
+
+    ViewData["Title"] = "Create and Assign Survey";
+
+}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Survey App</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+           
+            <li class="nav-item">
+                
+                <a class="nav-link text-dark" asp-area="" asp-controller="Survey" asp-action="AssignEmployee">Assign</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<div class="container">
+
+    <h2>Create and Assign Survey</h2>
+
+    <hr />
+
+
+
+    @using (Html.BeginForm("CreateSurvey", "Survey", FormMethod.Post))
+
+    {
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, "Survey Title")
+            @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+        </div>
+
+        <div id="questions-container">
+            <button type="button" class="btn btn-primary" id="add-question">Add Question</button>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create</button>
+    }
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            var questionsContainer = $("#questions-container");
+            var addQuestionButton = $("#add-question");
+            var questionIndex = 0;
+
+            addQuestionButton.click(function () {
+                var newQuestionHtml = `<div class="form-group">
+                            <label for="Questions_${questionIndex}__Qns">Question ${questionIndex + 1}</label>
+                            <input type="text" name="Questions[${questionIndex}].Qns" class="form-control" />
+                            <label for="Questions_${questionIndex}__IsYesOrNo">Yes/No</label>
+                            <select name="Questions[${questionIndex}].IsYesOrNo" class="form-control">
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>`;
+                questionsContainer.append(newQuestionHtml);
+                questionIndex++;
+            });
+        });
+    </script>
+}
+
+
+
+
+

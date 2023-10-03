@@ -1,0 +1,36 @@
+﻿@model   AspNetEmployeeSurvey.Models.SurveyResponsePageModel
+
+
+
+
+<h2>Survey Response</h2>
+
+<form asp-action="SubmitSurveyResponse" method="post">
+    <input type="hidden" name="SurveyId" value="@Model.SurveyId" />
+
+    @foreach (var questionResponse in Model.Survey)
+    {
+        <div class="form-group">
+            <label>@questionResponse.QuestionText</label>
+
+            @if (questionResponse.IsYesOrNoQuestion)
+            {
+                <div>
+                    <input type="radio" name="QuestionResponses[@questionResponse.QuestionId].YesOrNoResponse" value="true" /> Yes
+                    <input type="radio" name="QuestionResponses[@questionResponse.QuestionId].YesOrNoResponse" value="false" /> No
+                </div>
+            }
+            else
+            {
+                <textarea name="QuestionResponses[@questionResponse.QuestionId].TextResponse" class="form-control" rows="5" required>@questionResponse.TextResponse</textarea>
+            }
+
+            <span asp-validation-for="QuestionResponses[@questionResponse.QuestionId].YesOrNoResponse" class="text-danger"></span>
+            <span asp-validation-for="QuestionResponses[@questionResponse.QuestionId].TextResponse" class="text-danger"></span>
+        </div>
+    }
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit Response</button>
+    </div>
+</form>
